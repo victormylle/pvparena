@@ -135,7 +135,7 @@ public class GoalSabotage extends ArenaGoal implements Listener {
             return res;
         }
 
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
 
         final ArenaTeam pTeam = aPlayer.getArenaTeam();
         if (pTeam == null) {
@@ -457,7 +457,7 @@ public class GoalSabotage extends ArenaGoal implements Listener {
 
     @Override
     public void initate(final Player player) {
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         final ArenaTeam team = aPlayer.getArenaTeam();
         takeFlag(team.getName(), false,
                 SpawnManager.getBlockByExactName(arena, team.getName() + "tnt"));
@@ -478,7 +478,7 @@ public class GoalSabotage extends ArenaGoal implements Listener {
         final String teamName = getHeldFlagTeam(player.getName());
         final ArenaTeam team = arena.getTeam(teamName);
         if (teamName != null && team != null) {
-            final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+            final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
             getFlagMap().remove(teamName);
             distributeFlag(aPlayer, team);
         }
@@ -543,7 +543,7 @@ public class GoalSabotage extends ArenaGoal implements Listener {
 
     @Override
     public void unload(final Player player) {
-        disconnect(ArenaPlayer.parsePlayer(player.getName()));
+        disconnect(ArenaPlayer.parsePlayer(player));
     }
 
     @EventHandler

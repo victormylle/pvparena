@@ -366,7 +366,7 @@ public class PACheck {
             return false;
         }
 
-        final ArenaPlayer player = ArenaPlayer.parsePlayer(sender.getName());
+        final ArenaPlayer player = ArenaPlayer.parsePlayer((Player) sender);
 
         ArenaModuleManager.choosePlayerTeam(arena, (Player) sender,
                 team.getColoredName());
@@ -529,7 +529,7 @@ public class PACheck {
             }
             if (arena.getArenaConfig().getBoolean(CFG.PLAYER_REFILLFORKILL)) {
                 InventoryManager.clearInventory(player.getKiller());
-                ArenaPlayer.parsePlayer(player.getKiller().getName()).getArenaClass().equip(player.getKiller());
+                ArenaPlayer.parsePlayer(player.getKiller()).getArenaClass().equip(player.getKiller());
             }
             if (arena.getArenaConfig().getItems(CFG.PLAYER_ITEMSONKILL) != null) {
                 ItemStack[] items = arena.getArenaConfig().getItems(CFG.PLAYER_ITEMSONKILL);
@@ -540,7 +540,7 @@ public class PACheck {
                 }
             }
             if (arena.getArenaConfig().getBoolean(CFG.USES_TELEPORTONKILL)) {
-                SpawnManager.respawn(arena, ArenaPlayer.parsePlayer(player.getKiller().getName()), null);
+                SpawnManager.respawn(arena, ArenaPlayer.parsePlayer(player.getKiller()), null);
             }
         }
 
@@ -564,8 +564,7 @@ public class PACheck {
                     event.setDroppedExp(exp);
                 }
             }
-            final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(
-                    player.getName()).getArenaTeam();
+            final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player).getArenaTeam();
 
             if (arena.getArenaConfig().getBoolean(CFG.USES_DEATHMESSAGES)) {
                 arena.broadcast(Language.parse(arena, MSG.FIGHT_KILLED_BY,
@@ -590,7 +589,7 @@ public class PACheck {
                 }
             }
 
-            handleRespawn(arena, ArenaPlayer.parsePlayer(player.getName()),
+            handleRespawn(arena, ArenaPlayer.parsePlayer(player),
                     returned);
 
             for (final ArenaGoal g : arena.getGoals()) {
@@ -612,7 +611,7 @@ public class PACheck {
         ArenaModuleManager.parsePlayerDeath(arena, player,
                 player.getLastDamageCause());
 
-        if (!arena.getArenaConfig().getBoolean(CFG.PLAYER_DROPSINVENTORY) || !ArenaPlayer.parsePlayer(player.getName()).mayDropInventory()) {
+        if (!arena.getArenaConfig().getBoolean(CFG.PLAYER_DROPSINVENTORY) || !ArenaPlayer.parsePlayer(player).mayDropInventory()) {
             event.getDrops().clear();
         }
         if (doesRespawn

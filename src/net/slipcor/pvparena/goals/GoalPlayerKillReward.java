@@ -292,7 +292,7 @@ public class GoalPlayerKillReward extends ArenaGoal {
                 }
 
                 final int iLives = getLifeMap().get(player.getName());
-                if (ArenaPlayer.parsePlayer(player.getName()).getStatus() != Status.FIGHT) {
+                if (ArenaPlayer.parsePlayer(player).getStatus() != Status.FIGHT) {
                     return;
                 }
                 if (!arena.getArenaConfig().getBoolean(CFG.GOAL_PLAYERKILLREWARD_ONLYGIVE)) {
@@ -301,7 +301,7 @@ public class GoalPlayerKillReward extends ArenaGoal {
                 if (getItemMap().containsKey(iLives)) {
                     ArenaClass.equip(player, getItemMap().get(iLives));
                 } else {
-                    ArenaPlayer.parsePlayer(player.getName()).getArenaClass()
+                    ArenaPlayer.parsePlayer(player).getArenaClass()
                             .equip(player);
                 }
             }

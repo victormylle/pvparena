@@ -58,7 +58,7 @@ public class PAA_Class extends AbstractArenaCommand {
             final Player player = (Player) sender;
             PVPArena.instance.getLogger().info("Exiting edit mode: " + player.getName());
 
-            final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+            final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
 
             ArenaPlayer.reloadInventory(arena, player, false);
 

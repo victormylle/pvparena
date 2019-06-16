@@ -28,7 +28,7 @@ public class InventoryListener implements Listener {
     public void onInventoryClick(final InventoryClickEvent event) {
         final Player player = (Player) event.getWhoClicked();
 
-        final Arena arena = ArenaPlayer.parsePlayer(player.getName()).getArena();
+        final Arena arena = ArenaPlayer.parsePlayer(player).getArena();
 
         if (arena == null) {
             return;

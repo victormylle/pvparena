@@ -146,8 +146,8 @@ public class ArenaPlayer {
      */
     public static Player getLastDamagingPlayer(final Event eEvent, final Player damagee) {
 
-        final Debug debug = ArenaPlayer.parsePlayer(damagee.getName()).arena == null ?
-                ArenaPlayer.debug : ArenaPlayer.parsePlayer(damagee.getName()).arena.getDebugger();
+        final Debug debug = ArenaPlayer.parsePlayer(damagee).arena == null ?
+                ArenaPlayer.debug : ArenaPlayer.parsePlayer(damagee).arena.getDebugger();
 
         debug.i("trying to get the last damaging player", damagee);
         if (eEvent instanceof EntityDamageByEntityEvent) {
@@ -194,7 +194,7 @@ public class ArenaPlayer {
      * @param player the player to supply
      */
     public static void givePlayerFightItems(final Arena arena, final Player player) {
-        final ArenaPlayer aPlayer = parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = parsePlayer(player);
 
         final ArenaClass playerClass = aPlayer.aClass;
         if (playerClass == null) {
@@ -262,6 +262,16 @@ public class ArenaPlayer {
         }
     }
 
+    public static ArenaPlayer parsePlayer(final Player player) {
+        synchronized (ArenaPlayer.class) {
+            String uuid = player.getUniqueId().toString();
+            if (!totalPlayers.containsKey(uuid)) {
+                totalPlayers.put(uuid, new ArenaPlayer(player, null));
+            }
+            return totalPlayers.get(uuid);
+        }
+    }
+
     /**
      * prepare a player's inventory, back it up and clear it
      *
@@ -271,7 +281,7 @@ public class ArenaPlayer {
         arena.getDebugger().i("saving player inventory: " + player.getName(),
                 player);
 
-        final ArenaPlayer aPlayer = parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = parsePlayer(player);
         aPlayer.savedInventory = player.getInventory().getContents().clone();
         InventoryManager.clearInventory(player);
     }
@@ -288,7 +298,7 @@ public class ArenaPlayer {
             return;
         }
 
-        final ArenaPlayer aPlayer = parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = parsePlayer(player);
 
         if (arena.getArenaConfig().getYamlConfiguration().get(CFG.ITEMS_TAKEOUTOFGAME.getNode()) != null) {
             final ItemStack[] items =

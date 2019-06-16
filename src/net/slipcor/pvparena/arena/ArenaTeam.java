@@ -105,7 +105,7 @@ public class ArenaTeam {
     }
 
     public boolean hasPlayer(final Player player) {
-        return players.contains(ArenaPlayer.parsePlayer(player.getName()));
+        return players.contains(ArenaPlayer.parsePlayer(player));
     }
 
     public boolean isEveryoneReady() {

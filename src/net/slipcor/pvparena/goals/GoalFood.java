@@ -394,7 +394,7 @@ public class GoalFood extends ArenaGoal implements Listener {
 
     @Override
     public void initate(final Player player) {
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         if (getLifeMap().get(aPlayer.getArenaTeam().getName()) == null) {
             getLifeMap().put(aPlayer.getArenaTeam().getName(), arena.getArenaConfig()
                     .getInt(CFG.GOAL_FOOD_FMAXITEMS));
@@ -603,7 +603,7 @@ public class GoalFood extends ArenaGoal implements Listener {
     @SuppressWarnings("deprecation")
     @Override
     public void refillInventory(final Player player) {
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         final ArenaTeam team = aPlayer.getArenaTeam();
         if (team == null) {
             return;
@@ -655,7 +655,7 @@ public class GoalFood extends ArenaGoal implements Listener {
     @Override
     public void unload(final Player player) {
         if (allowsJoinInBattle()) {
-            arena.hasNotPlayed(ArenaPlayer.parsePlayer(player.getName()));
+            arena.hasNotPlayed(ArenaPlayer.parsePlayer(player));
         }
     }
 }

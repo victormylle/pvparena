@@ -6,6 +6,7 @@ import net.slipcor.pvparena.arena.ArenaTeam;
 import net.slipcor.pvparena.classes.PABlockLocation;
 import net.slipcor.pvparena.core.Debug;
 import net.slipcor.pvparena.managers.ArenaManager;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -39,7 +40,7 @@ public final class PVPArenaAPI {
         if (!Debug.override) {
             DEBUG.i("API: get arena of player: " + player.getName(), player);
         }
-        final Arena arena = ArenaPlayer.parsePlayer(player.getName()).getArena();
+        final Arena arena = ArenaPlayer.parsePlayer(player).getArena();
         return arena == null ? "" : arena.getName();
     }
 
@@ -53,7 +54,7 @@ public final class PVPArenaAPI {
         if (!Debug.override) {
             DEBUG.i("API: get arena team of player: " + player.getName(), player);
         }
-        return ArenaPlayer.parsePlayer(player.getName()).getArenaTeam();
+        return ArenaPlayer.parsePlayer(player).getArenaTeam();
     }
 
     /**
@@ -66,7 +67,7 @@ public final class PVPArenaAPI {
         if (!Debug.override) {
             DEBUG.i("API: get arena team of player: " + player.getName(), player);
         }
-        final ArenaTeam team = ArenaPlayer.parsePlayer(player.getName()).getArenaTeam();
+        final ArenaTeam team = ArenaPlayer.parsePlayer(player).getArenaTeam();
         return team == null ? "" : team.getName();
     }
 

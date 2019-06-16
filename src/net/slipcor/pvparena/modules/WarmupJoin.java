@@ -126,6 +126,6 @@ public class WarmupJoin extends ArenaModule {
 
     @Override
     public void parsePlayerLeave(final Player player, final ArenaTeam team) {
-        getPlayerSet().remove(ArenaPlayer.parsePlayer(player.getName()));
+        getPlayerSet().remove(ArenaPlayer.parsePlayer(player));
     }
 }

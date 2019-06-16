@@ -303,10 +303,10 @@ public class Arena {
                 return;
             }
             if (startRunner != null) {
-                ArenaPlayer.parsePlayer(player.getName()).setStatus(Status.READY);
+                ArenaPlayer.parsePlayer(player).setStatus(Status.READY);
             }
         }
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         if (aPlayer.getArena() == null) {
             PVPArena.instance.getLogger().warning(
                     "failed to set class " + className + " to player "
@@ -809,7 +809,7 @@ public class Arena {
                 return true;
             }
         }
-        return equals(ArenaPlayer.parsePlayer(player.getName()).getArena());
+        return equals(ArenaPlayer.parsePlayer(player).getArena());
     }
 
     public void increasePlayerCount() {
@@ -884,7 +884,7 @@ public class Arena {
         ArenaPlayer aPlayer = null;
         ArenaTeam team = null;
         if (damager instanceof Player) {
-            aPlayer = ArenaPlayer.parsePlayer(((Player) damager).getName());
+            aPlayer = ArenaPlayer.parsePlayer(((Player) damager));
             team = aPlayer.getArenaTeam();
         }
 
@@ -981,7 +981,7 @@ public class Arena {
             playedPlayers.remove(player.getName());
         }
         getDebugger().i("fully removing player from arena", player);
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         if (!silent) {
 
             final ArenaTeam team = aPlayer.getArenaTeam();
@@ -1134,7 +1134,7 @@ public class Arena {
      * @param player the player to remove
      */
     public void callLeaveEvent(final Player player) {
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         final PALeaveEvent event = new PALeaveEvent(this, player, aPlayer.getStatus() == Status.FIGHT);
         Bukkit.getPluginManager().callEvent(event);
     }
@@ -1187,7 +1187,7 @@ public class Arena {
                 + ", tp to " + tploc, player);
         resetPlayer(player, tploc, soft, force);
 
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         if (!soft && aPlayer.getArenaTeam() != null) {
             aPlayer.getArenaTeam().remove(aPlayer);
         }
@@ -1327,7 +1327,7 @@ public class Arena {
                     getDebugger().i("ScoreBoards: scoreboard is null!");
                     return;
                 }
-                final ArenaPlayer ap = ArenaPlayer.parsePlayer(player.getName());
+                final ArenaPlayer ap = ArenaPlayer.parsePlayer(player);
                 class RunLater implements Runnable {
                     @Override
                     public void run() {
@@ -1363,7 +1363,7 @@ public class Arena {
                     return;
                 }
             }
-            final ArenaPlayer ap = ArenaPlayer.parsePlayer(player.getName());
+            final ArenaPlayer ap = ArenaPlayer.parsePlayer(player);
             try {
                 Bukkit.getScheduler().runTaskLater(PVPArena.instance, new Runnable() {
                     @Override
@@ -1526,7 +1526,7 @@ public class Arena {
         } catch (final Exception e) {
         }
 
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         if (aPlayer.getState() != null) {
             aPlayer.getState().unload(soft);
         }
@@ -1603,7 +1603,7 @@ public class Arena {
 
     public void setupScoreboard(final Player player) {
         if (getArenaConfig().getBoolean(CFG.USES_SCOREBOARD)) {
-            final ArenaPlayer ap = ArenaPlayer.parsePlayer(player.getName());
+            final ArenaPlayer ap = ArenaPlayer.parsePlayer(player);
             getDebugger().i("ScoreBoards: Initiating scoreboard for player " + player.getName());
             if (!ap.hasBackupScoreboard() && player.getScoreboard() != null) {
                 ap.setBackupScoreboard(player.getScoreboard());
@@ -1625,7 +1625,7 @@ public class Arena {
 
                     for (final ArenaTeam team : getTeams()) {
 
-                        if (team == ArenaPlayer.parsePlayer(player.getName()).getArenaTeam()) {
+                        if (team == ArenaPlayer.parsePlayer(player).getArenaTeam()) {
                             board.getTeam(team.getName()).addEntry(player.getName());
                             updateScoreboard(player);
                             return;
@@ -1661,7 +1661,7 @@ public class Arena {
             Bukkit.getScheduler().runTaskLater(PVPArena.instance, new RunLater(), 1L);
         } else {
             final Scoreboard board = getStandardScoreboard();
-            ArenaPlayer ap = ArenaPlayer.parsePlayer(player.getName());
+            ArenaPlayer ap = ArenaPlayer.parsePlayer(player);
             final ArenaTeam team = ap.getArenaTeam();
             if (!ap.hasBackupScoreboard() && player.getScoreboard() != null) {
                 ap.setBackupScoreboard(player.getScoreboard());
@@ -1715,7 +1715,7 @@ public class Arena {
             player.setExp(0);
         }
 
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         final ArenaTeam team = aPlayer.getArenaTeam();
 
         if (team == null) {
@@ -2027,7 +2027,7 @@ public class Arena {
 
         ArenaModuleManager.tpPlayerToCoordName(this, player, place);
 
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
 
         if ("spectator".equals(place)) {
             if (getFighters().contains(aPlayer)) {
@@ -2115,7 +2115,7 @@ public class Arena {
      * @return true if joining successful
      */
     public boolean tryJoin(final Player player, final ArenaTeam team) {
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
 
         getDebugger().i("trying to join player " + player.getName(), player);
 
@@ -2417,7 +2417,7 @@ public class Arena {
 
     private void updateScoreboard(final Player player) {
         if (getArenaConfig().getBoolean(CFG.USES_SCOREBOARD)) {
-            final ArenaPlayer ap = ArenaPlayer.parsePlayer(player.getName());
+            final ArenaPlayer ap = ArenaPlayer.parsePlayer(player);
             if (ap.getArenaTeam() == null) {
                 // a spectator, special case. Just update and do not add to the scores
                 if (player.getScoreboard() == null || !player.getScoreboard().equals(getSpecialScoreboard())) {
@@ -2427,7 +2427,7 @@ public class Arena {
             }
             if (isFreeForAll()) {
                 final Score score = getSpecialScoreboard().getObjective("lives").getScore(player.getName());
-                score.setScore(PACheck.handleGetLives(this, ArenaPlayer.parsePlayer(player.getName())));
+                score.setScore(PACheck.handleGetLives(this, ArenaPlayer.parsePlayer(player)));
             } else {
                 getSpecialScoreboard().getObjective("lives").getScore(ap.getArenaTeam().getName()).setScore(PACheck.handleGetLives(this, ap));
             }
@@ -2445,7 +2445,7 @@ public class Arena {
                 @Override
                 public void run() {
 
-                    final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+                    final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
                     if (aPlayer.getArenaTeam() != null) {
                         board.getTeam(oldTeam.getName()).removeEntry(player.getName());
 

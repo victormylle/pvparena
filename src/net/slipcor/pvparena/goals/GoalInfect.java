@@ -295,7 +295,7 @@ public class GoalInfect extends ArenaGoal {
             }
             final int iLives = getLifeMap().get(player.getName());
             arena.getDebugger().i("lives before death: " + iLives, player);
-            if (iLives <= 1 && "infected".equals(ArenaPlayer.parsePlayer(player.getName()).getArenaTeam().getName())) {
+            if (iLives <= 1 && "infected".equals(ArenaPlayer.parsePlayer(player).getArenaTeam().getName())) {
                 res.setError(this, "0");
             }
 
@@ -443,12 +443,12 @@ public class GoalInfect extends ArenaGoal {
         }
         int iLives = getLifeMap().get(player.getName());
         arena.getDebugger().i("lives before death: " + iLives, player);
-        if (iLives <= 1 || "infected".equals(ArenaPlayer.parsePlayer(player.getName()).getArenaTeam().getName())) {
-            if (iLives <= 1 && "infected".equals(ArenaPlayer.parsePlayer(player.getName()).getArenaTeam().getName())) {
+        if (iLives <= 1 || "infected".equals(ArenaPlayer.parsePlayer(player).getArenaTeam().getName())) {
+            if (iLives <= 1 && "infected".equals(ArenaPlayer.parsePlayer(player).getArenaTeam().getName())) {
 
                 final PAGoalEvent gEvent = new PAGoalEvent(arena, this, "infected", "playerDeath:" + player.getName());
                 Bukkit.getPluginManager().callEvent(gEvent);
-                ArenaPlayer.parsePlayer(player.getName()).setStatus(Status.LOST);
+                ArenaPlayer.parsePlayer(player).setStatus(Status.LOST);
                 // kill, remove!
                 getLifeMap().remove(player.getName());
                 if (arena.getArenaConfig().getBoolean(CFG.PLAYER_PREVENTDEATH)) {
@@ -465,7 +465,7 @@ public class GoalInfect extends ArenaGoal {
                 arena.msg(player, Language.parse(arena, MSG.GOAL_INFECTED_YOU));
                 arena.broadcast(Language.parse(arena, MSG.GOAL_INFECTED_PLAYER, player.getName()));
 
-                ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+                ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
 
                 final ArenaTeam oldTeam = aPlayer.getArenaTeam();
                 final ArenaTeam respawnTeam = arena.getTeam("infected");
@@ -504,7 +504,7 @@ public class GoalInfect extends ArenaGoal {
                 }
 
                 PACheck.handleRespawn(arena,
-                        ArenaPlayer.parsePlayer(player.getName()), returned);
+                        ArenaPlayer.parsePlayer(player), returned);
 
                 if (anyTeamEmpty()) {
                     PACheck.handleEnd(arena, false);
@@ -517,7 +517,7 @@ public class GoalInfect extends ArenaGoal {
             iLives--;
             getLifeMap().put(player.getName(), iLives);
 
-            final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player.getName())
+            final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player)
                     .getArenaTeam();
             if (arena.getArenaConfig().getBoolean(CFG.USES_DEATHMESSAGES)) {
                 arena.broadcast(Language.parse(arena,
@@ -540,7 +540,7 @@ public class GoalInfect extends ArenaGoal {
             }
 
             PACheck.handleRespawn(arena,
-                    ArenaPlayer.parsePlayer(player.getName()), returned);
+                    ArenaPlayer.parsePlayer(player), returned);
 
 
             // player died => commit death!
@@ -549,7 +549,7 @@ public class GoalInfect extends ArenaGoal {
             iLives--;
             getLifeMap().put(player.getName(), iLives);
 
-            final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player.getName())
+            final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player)
                     .getArenaTeam();
             if (arena.getArenaConfig().getBoolean(CFG.USES_DEATHMESSAGES)) {
                 arena.broadcast(Language.parse(arena,
@@ -572,7 +572,7 @@ public class GoalInfect extends ArenaGoal {
             }
 
             PACheck.handleRespawn(arena,
-                    ArenaPlayer.parsePlayer(player.getName()), returned);
+                    ArenaPlayer.parsePlayer(player), returned);
         }
     }
 

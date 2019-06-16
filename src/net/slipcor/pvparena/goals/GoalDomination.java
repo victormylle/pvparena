@@ -660,7 +660,7 @@ public class GoalDomination extends ArenaGoal {
 
     @Override
     public void initate(final Player player) {
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         final ArenaTeam team = aPlayer.getArenaTeam();
         if (!getLifeMap().containsKey(team.getName())) {
             getLifeMap().put(aPlayer.getArenaTeam().getName(), arena.getArenaConfig()

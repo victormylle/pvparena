@@ -149,7 +149,7 @@ public class GoalLiberation extends ArenaGoal {
         }
         arena.getDebugger().i("button click!", player);
 
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
 
         final ArenaTeam pTeam = aPlayer.getArenaTeam();
         if (pTeam == null) {
@@ -290,7 +290,7 @@ public class GoalLiberation extends ArenaGoal {
             if (pos <= 1) {
                 getLifeMap().put(player.getName(), 1);
 
-                final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+                final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
 
                 final ArenaTeam team = aPlayer.getArenaTeam();
 
@@ -393,7 +393,7 @@ public class GoalLiberation extends ArenaGoal {
         if (lives <= 1) {
             getLifeMap().put(player.getName(), 1);
 
-            final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+            final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
 
             aPlayer.setStatus(Status.DEAD);
 
@@ -410,7 +410,7 @@ public class GoalLiberation extends ArenaGoal {
 
             if (someoneAlive) {
 
-                final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player.getName())
+                final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player)
                         .getArenaTeam();
                 if (arena.getArenaConfig().getBoolean(CFG.USES_DEATHMESSAGES)) {
                     arena.broadcast(Language.parse(arena,
@@ -455,11 +455,11 @@ public class GoalLiberation extends ArenaGoal {
                 }
 
                 PACheck.handleRespawn(arena,
-                        ArenaPlayer.parsePlayer(player.getName()), returned);
+                        ArenaPlayer.parsePlayer(player), returned);
 
-                ArenaPlayer.parsePlayer(player.getName()).setStatus(Status.LOST);
+                ArenaPlayer.parsePlayer(player).setStatus(Status.LOST);
 
-                final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player.getName())
+                final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player)
                         .getArenaTeam();
                 if (arena.getArenaConfig().getBoolean(CFG.USES_DEATHMESSAGES)) {
                     arena.broadcast(Language.parse(arena,
@@ -477,7 +477,7 @@ public class GoalLiberation extends ArenaGoal {
             lives--;
             getLifeMap().put(player.getName(), lives);
 
-            final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player.getName())
+            final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player)
                     .getArenaTeam();
             if (arena.getArenaConfig().getBoolean(CFG.USES_DEATHMESSAGES)) {
                 arena.broadcast(Language.parse(arena,
@@ -500,7 +500,7 @@ public class GoalLiberation extends ArenaGoal {
             }
 
             PACheck.handleRespawn(arena,
-                    ArenaPlayer.parsePlayer(player.getName()), returned);
+                    ArenaPlayer.parsePlayer(player), returned);
 
         }
     }

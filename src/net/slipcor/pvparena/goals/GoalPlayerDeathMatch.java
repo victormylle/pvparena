@@ -170,7 +170,7 @@ public class GoalPlayerDeathMatch extends ArenaGoal {
             Bukkit.getPluginManager().callEvent(gEvent);
 
             if (arena.getArenaConfig().getBoolean(CFG.USES_DEATHMESSAGES)) {
-                final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player.getName())
+                final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player)
                         .getArenaTeam();
                 arena.broadcast(Language.parse(arena,
                         MSG.FIGHT_KILLED_BY,
@@ -190,7 +190,7 @@ public class GoalPlayerDeathMatch extends ArenaGoal {
                 returned.addAll(event.getDrops());
             }
 
-            PACheck.handleRespawn(arena, ArenaPlayer.parsePlayer(player.getName()), returned);
+            PACheck.handleRespawn(arena, ArenaPlayer.parsePlayer(player), returned);
 
             if (arena.getArenaConfig().getBoolean(CFG.USES_SUICIDEPUNISH)) {
                 for (ArenaPlayer ap : arena.getFighters()) {
@@ -214,7 +214,7 @@ public class GoalPlayerDeathMatch extends ArenaGoal {
             return;
         }
 
-        final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player.getName())
+        final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player)
                 .getArenaTeam();
         if (arena.getArenaConfig().getBoolean(CFG.USES_DEATHMESSAGES)) {
             if (arena.getArenaConfig().getBoolean(CFG.GENERAL_SHOWREMAININGLIVES)) {
@@ -245,7 +245,7 @@ public class GoalPlayerDeathMatch extends ArenaGoal {
             returned.addAll(event.getDrops());
         }
 
-        PACheck.handleRespawn(arena, ArenaPlayer.parsePlayer(player.getName()), returned);
+        PACheck.handleRespawn(arena, ArenaPlayer.parsePlayer(player), returned);
     }
 
     private boolean increaseScore(Player killer, Player killed) {
@@ -388,7 +388,7 @@ public class GoalPlayerDeathMatch extends ArenaGoal {
     public void unload(final Player player) {
         getLifeMap().remove(player.getName());
         if (allowsJoinInBattle()) {
-            arena.hasNotPlayed(ArenaPlayer.parsePlayer(player.getName()));
+            arena.hasNotPlayed(ArenaPlayer.parsePlayer(player));
         }
     }
 }

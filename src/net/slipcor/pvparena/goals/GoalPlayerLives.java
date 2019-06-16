@@ -215,7 +215,7 @@ public class GoalPlayerLives extends ArenaGoal {
         arena.getDebugger().i("lives before death: " + pos, player);
         if (pos <= 1) {
             getLifeMap().remove(player.getName());
-            ArenaPlayer.parsePlayer(player.getName()).setStatus(Status.LOST);
+            ArenaPlayer.parsePlayer(player).setStatus(Status.LOST);
             if (arena.getArenaConfig().getBoolean(CFG.PLAYER_PREVENTDEATH)) {
                 arena.getDebugger().i("faking player death", player);
                 PlayerListener.finallyKillPlayer(arena, player, event);
@@ -226,7 +226,7 @@ public class GoalPlayerLives extends ArenaGoal {
             pos--;
             getLifeMap().put(player.getName(), pos);
 
-            final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player.getName())
+            final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player)
                     .getArenaTeam();
             if (arena.getArenaConfig().getBoolean(CFG.USES_DEATHMESSAGES)) {
                 if (arena.getArenaConfig().getBoolean(CFG.GENERAL_SHOWREMAININGLIVES)) {
@@ -258,7 +258,7 @@ public class GoalPlayerLives extends ArenaGoal {
             }
 
             PACheck.handleRespawn(arena,
-                    ArenaPlayer.parsePlayer(player.getName()), returned);
+                    ArenaPlayer.parsePlayer(player), returned);
 
         }
     }

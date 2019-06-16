@@ -65,7 +65,7 @@ public final class PlayerState {
         potionEffects = player.getActivePotionEffects();
         collides = player.isCollidable();
 
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         final Arena arena = aPlayer.getArena();
 
         aPlayer.setFlyState(player.isFlying());
@@ -140,7 +140,7 @@ public final class PlayerState {
         PlayerState.removeEffects(player);
 
         if (arena.getArenaConfig().getBoolean(CFG.CHAT_COLORNICK)) {
-            final ArenaTeam team = ArenaPlayer.parsePlayer(player.getName()).getArenaTeam();
+            final ArenaTeam team = ArenaPlayer.parsePlayer(player).getArenaTeam();
             String n;
             if (team == null) {
                 n = player.getName();
@@ -166,7 +166,7 @@ public final class PlayerState {
         player.setFireTicks(fireticks);
         player.setFoodLevel(foodlevel);
 
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         player.setFoodLevel(foodlevel);
         if (aPlayer.getArena().getArenaConfig().getInt(CFG.GENERAL_GAMEMODE) > -1) {
             player.setGameMode(GameMode.getByValue(gamemode));

@@ -206,7 +206,7 @@ public class ArenaRegion {
             // - player has admin perms
             // - player has wand in hand
             arena.getDebugger().i("modify&adminperms&wand", player);
-            final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+            final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
             if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
                 aPlayer.setSelection(event.getClickedBlock().getLocation(), false);
                 arena.msg(player, Language.parse(arena, MSG.REGION_POS1));
@@ -682,7 +682,7 @@ public class ArenaRegion {
                 && type == RegionType.JOIN && !arena.isFightInProgress()
                 && !arena.isLocked()) {
             for (final Player p : Bukkit.getOnlinePlayers()) {
-                final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(p.getName());
+                final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(p);
                 if (aPlayer.getArena() != null) {
                     continue;
                 }

@@ -325,7 +325,7 @@ public class GoalCheckPoints extends ArenaGoal {
 
     @Override
     public void initate(final Player player) {
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         if (!getLifeMap().containsKey(aPlayer.getName())) {
             getLifeMap().put(aPlayer.getName(), arena.getArenaConfig()
                     .getInt(CFG.GOAL_CHECKPOINTS_LIVES));

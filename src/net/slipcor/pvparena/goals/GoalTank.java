@@ -223,7 +223,7 @@ public class GoalTank extends ArenaGoal {
                 PlayerListener.finallyKillPlayer(arena, player, event);
             }
 
-            ArenaPlayer.parsePlayer(player.getName()).setStatus(Status.LOST);
+            ArenaPlayer.parsePlayer(player).setStatus(Status.LOST);
             // player died => commit death!
             PACheck.handleEnd(arena, false);
         } else {
@@ -232,7 +232,7 @@ public class GoalTank extends ArenaGoal {
             iLives--;
             getLifeMap().put(player.getName(), iLives);
 
-            final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player.getName())
+            final ArenaTeam respawnTeam = ArenaPlayer.parsePlayer(player)
                     .getArenaTeam();
             if (arena.getArenaConfig().getBoolean(CFG.USES_DEATHMESSAGES)) {
                 arena.broadcast(Language.parse(arena,
@@ -254,7 +254,7 @@ public class GoalTank extends ArenaGoal {
             }
 
             PACheck.handleRespawn(arena,
-                    ArenaPlayer.parsePlayer(player.getName()), returned);
+                    ArenaPlayer.parsePlayer(player), returned);
         }
     }
 

@@ -168,7 +168,7 @@ public class GoalPhysicalFlags extends ArenaGoal implements Listener {
         }
         arena.getDebugger().i("flag click!", player);
 
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
 
         if (getFlagMap().containsValue(player.getName())) {
             arena.getDebugger().i("player " + player.getName() + " has got a flag", player);
@@ -750,7 +750,7 @@ public class GoalPhysicalFlags extends ArenaGoal implements Listener {
 
     @Override
     public void initate(final Player player) {
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         final ArenaTeam team = aPlayer.getArenaTeam();
         if (!getLifeMap().containsKey(team.getName())) {
             getLifeMap().put(aPlayer.getArenaTeam().getName(), arena.getArenaConfig()
@@ -778,7 +778,7 @@ public class GoalPhysicalFlags extends ArenaGoal implements Listener {
         }
         final String sTeam = getHeldFlagTeam(player.getName());
         final ArenaTeam flagTeam = arena.getTeam(sTeam);
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
 
         if (flagTeam == null) {
             if (sTeam != null) {
@@ -982,9 +982,9 @@ public class GoalPhysicalFlags extends ArenaGoal implements Listener {
 
     @Override
     public void unload(final Player player) {
-        disconnect(ArenaPlayer.parsePlayer(player.getName()));
+        disconnect(ArenaPlayer.parsePlayer(player));
         if (allowsJoinInBattle()) {
-            arena.hasNotPlayed(ArenaPlayer.parsePlayer(player.getName()));
+            arena.hasNotPlayed(ArenaPlayer.parsePlayer(player));
         }
     }
 
@@ -1009,7 +1009,7 @@ public class GoalPhysicalFlags extends ArenaGoal implements Listener {
 
         arena.getDebugger().i("flag destroy!", player);
 
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
 
         if (getFlagMap().containsValue(player.getName())) {
             arena.getDebugger().i("already carries a flag!", player);
@@ -1096,7 +1096,7 @@ public class GoalPhysicalFlags extends ArenaGoal implements Listener {
     public void onInventoryClick(final InventoryClickEvent event) {
         final Player player = (Player) event.getWhoClicked();
 
-        final Arena arena = ArenaPlayer.parsePlayer(player.getName()).getArena();
+        final Arena arena = ArenaPlayer.parsePlayer(player).getArena();
 
         if (arena == null || !arena.getName().equals(this.arena.getName())) {
             return;

@@ -116,7 +116,7 @@ public class GoalTeamLives extends ArenaGoal {
             res.setPriority(this, PRIORITY);
 
             final ArenaTeam respawnTeam = ArenaPlayer
-                    .parsePlayer(player.getName()).getArenaTeam();
+                    .parsePlayer(player).getArenaTeam();
 
             if (getLifeMap().get(respawnTeam.getName()) != null) {
                 return res;
@@ -277,7 +277,7 @@ public class GoalTeamLives extends ArenaGoal {
 
     @Override
     public void initate(final Player player) {
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         updateLives(aPlayer.getArenaTeam(), arena.getArenaConfig()
                 .getInt(CFG.GOAL_TLIVES_LIVES));
     }

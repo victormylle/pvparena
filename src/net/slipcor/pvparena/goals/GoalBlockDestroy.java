@@ -415,7 +415,7 @@ public class GoalBlockDestroy extends ArenaGoal implements Listener {
 
     @Override
     public void initate(final Player player) {
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         final ArenaTeam team = aPlayer.getArenaTeam();
         if (!getLifeMap().containsKey(team.getName())) {
             getLifeMap().put(aPlayer.getArenaTeam().getName(), arena.getArenaConfig()
@@ -532,9 +532,9 @@ public class GoalBlockDestroy extends ArenaGoal implements Listener {
 
     @Override
     public void unload(final Player player) {
-        disconnect(ArenaPlayer.parsePlayer(player.getName()));
+        disconnect(ArenaPlayer.parsePlayer(player));
         if (allowsJoinInBattle()) {
-            arena.hasNotPlayed(ArenaPlayer.parsePlayer(player.getName()));
+            arena.hasNotPlayed(ArenaPlayer.parsePlayer(player));
         }
     }
 
@@ -564,7 +564,7 @@ public class GoalBlockDestroy extends ArenaGoal implements Listener {
 
         arena.getDebugger().i("block destroy!", player);
 
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
 
         final ArenaTeam pTeam = aPlayer.getArenaTeam();
         if (pTeam == null) {

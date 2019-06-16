@@ -266,7 +266,7 @@ public class GoalTeamDeathConfirm extends ArenaGoal {
 
     @Override
     public void initate(final Player player) {
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         updateLives(aPlayer.getArenaTeam(), arena.getArenaConfig()
                 .getInt(CFG.GOAL_TDC_LIVES));
     }
@@ -388,7 +388,7 @@ public class GoalTeamDeathConfirm extends ArenaGoal {
     @Override
     public void unload(final Player player) {
         if (allowsJoinInBattle()) {
-            arena.hasNotPlayed(ArenaPlayer.parsePlayer(player.getName()));
+            arena.hasNotPlayed(ArenaPlayer.parsePlayer(player));
         }
     }
 }

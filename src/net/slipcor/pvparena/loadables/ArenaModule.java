@@ -354,7 +354,7 @@ public class ArenaModule extends NCBLoadable implements IArenaCommandHandler {
      * @param sender the joining player
      * @param team   the chosen team
      */
-    public void parseJoin(final CommandSender sender, final ArenaTeam team) {
+    public void parseJoin(final Player sender, final ArenaTeam team) {
     }
 
     /**

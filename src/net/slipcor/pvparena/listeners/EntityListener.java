@@ -141,7 +141,7 @@ public class EntityListener implements Listener {
             return;
         }
 
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         final ArenaTeam team = aPlayer.getArenaTeam();
 
         if (team == null) {
@@ -366,7 +366,7 @@ public class EntityListener implements Listener {
             if (arena.hasEntity(event.getEntity())) {
 
                 Player player = arena.getEntityOwner(event.getEntity());
-                ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+                ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
 
                 if (event.getEntity().equals(player)) {
                     event.setCancelled(true);

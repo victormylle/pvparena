@@ -89,7 +89,7 @@ public class PlayerListener implements Listener {
             return false;
         }
 
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
 
         if ((aPlayer.getStatus() == Status.WATCH || aPlayer.getStatus() == Status.LOST) &&
                 arena.getArenaConfig().getBoolean(CFG.PERMS_SPECINTERACT)) {
@@ -124,7 +124,7 @@ public class PlayerListener implements Listener {
                 return false;
             }
         }
-        if (ArenaPlayer.parsePlayer(player.getName()).getStatus() == Status.LOST) {
+        if (ArenaPlayer.parsePlayer(player).getStatus() == Status.LOST) {
             DEBUG.i("cancelling because LOST", player);
             event.setCancelled(true);
             return true;
@@ -142,8 +142,8 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        final Arena arena = ArenaPlayer.parsePlayer(player.getName()).getArena();
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final Arena arena = ArenaPlayer.parsePlayer(player).getArena();
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
 
         if (arena == null) {
             return; // no fighting player => OUT
@@ -208,7 +208,7 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        final Arena arena = ArenaPlayer.parsePlayer(player.getName()).getArena();
+        final Arena arena = ArenaPlayer.parsePlayer(player).getArena();
         if (arena == null || player.isOp() || PVPArena.hasAdminPerms(player)
                 || PVPArena.hasCreatePerms(player, arena)) {
             return; // no fighting player => OUT
@@ -264,7 +264,7 @@ public class PlayerListener implements Listener {
 
         final Player player = (Player) event.getWhoClicked();
 
-        final Arena arena = ArenaPlayer.parsePlayer(player.getName()).getArena();
+        final Arena arena = ArenaPlayer.parsePlayer(player).getArena();
         if (arena == null || player.isOp() || PVPArena.hasAdminPerms(player)
                 || PVPArena.hasCreatePerms(player, arena)) {
             return; // no fighting player => OUT
@@ -294,7 +294,7 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         final Arena arena = aPlayer.getArena();
         if (arena == null) {
             return; // no fighting player => OUT
@@ -354,7 +354,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.LOW)
     public void onPlayerDeath(final PlayerDeathEvent event) {
         final Player player = event.getEntity();
-        final Arena arena = ArenaPlayer.parsePlayer(player.getName()).getArena();
+        final Arena arena = ArenaPlayer.parsePlayer(player).getArena();
         if (arena == null) {
             return;
         }
@@ -378,7 +378,7 @@ public class PlayerListener implements Listener {
             cause = (EntityDamageEvent) eEvent;
         }
 
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         final ArenaTeam team = aPlayer.getArenaTeam();
 
         final String playerName = team == null ? player.getName() : team.colorizePlayer(player);
@@ -397,8 +397,8 @@ public class PlayerListener implements Listener {
             }
         }
 
-        if (ArenaPlayer.parsePlayer(player.getName()).getArenaClass() == null
-                || !"custom".equalsIgnoreCase(ArenaPlayer.parsePlayer(player.getName()).getArenaClass()
+        if (ArenaPlayer.parsePlayer(player).getArenaClass() == null
+                || !"custom".equalsIgnoreCase(ArenaPlayer.parsePlayer(player).getArenaClass()
                 .getName())) {
             InventoryManager.clearInventory(player);
         }
@@ -441,7 +441,7 @@ public class PlayerListener implements Listener {
 
         final Player player = (Player) event.getEntity();
 
-        final ArenaPlayer ap = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer ap = ArenaPlayer.parsePlayer(player);
 
         if (ap.getStatus() == Status.READY || ap.getStatus() == Status.LOUNGE || ap.getArena() != null && !ap.getArena().getArenaConfig().getBoolean(CFG.PLAYER_HUNGER)) {
             event.setCancelled(true);
@@ -497,7 +497,7 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        arena = ArenaPlayer.parsePlayer(player.getName()).getArena();
+        arena = ArenaPlayer.parsePlayer(player).getArena();
         if (arena == null) {
             DEBUG.i("returning: #4", player);
             ArenaManager.trySignJoin(event, player);
@@ -513,7 +513,7 @@ public class PlayerListener implements Listener {
         final boolean whyMe = arena.isFightInProgress()
                 && !PVPArena.instance.getAgm().allowsJoinInBattle(arena);
 
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         final ArenaTeam team = aPlayer.getArenaTeam();
 
         if (aPlayer.getStatus() == Status.WATCH &&
@@ -670,7 +670,7 @@ public class PlayerListener implements Listener {
                     }
                 }
 
-                ArenaPlayer.parsePlayer(player.getName()).setStatus(
+                ArenaPlayer.parsePlayer(player).setStatus(
                         Status.FIGHT);
 
                 ArenaModuleManager.lateJoin(arena, player);
@@ -735,7 +735,7 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
 
         aPlayer.setArena(null);
         // instantiate and/or reset a player. This fixes issues with leaving
@@ -761,7 +761,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerKicked(final PlayerKickEvent event) {
         final Player player = event.getPlayer();
-        final Arena arena = ArenaPlayer.parsePlayer(player.getName()).getArena();
+        final Arena arena = ArenaPlayer.parsePlayer(player).getArena();
         if (arena == null) {
             return; // no fighting player => OUT
         }
@@ -771,7 +771,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerRespawn(final PlayerRespawnEvent event) {
         final Player player = event.getPlayer();
-        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+        final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
         // aPlayer.setArena(null);
         // instantiate and/or reset a player. This fixes issues with leaving
         // players and makes sure every player is an arenaplayer ^^
@@ -802,7 +802,7 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        final Arena arena = ArenaPlayer.parsePlayer(player.getName()).getArena();
+        final Arena arena = ArenaPlayer.parsePlayer(player).getArena();
 
         if (arena != null) {
 
@@ -825,7 +825,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerQuit(final PlayerQuitEvent event) {
         final Player player = event.getPlayer();
-        final Arena arena = ArenaPlayer.parsePlayer(player.getName()).getArena();
+        final Arena arena = ArenaPlayer.parsePlayer(player).getArena();
         if (arena == null) {
             return; // no fighting player => OUT
         }
@@ -835,7 +835,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerTeleport(final PlayerTeleportEvent event) {
         final Player player = event.getPlayer();
-        Arena arena = ArenaPlayer.parsePlayer(player.getName()).getArena();
+        Arena arena = ArenaPlayer.parsePlayer(player).getArena();
 
         if (arena == null) {
             if (event.getTo() == null) {
@@ -876,13 +876,13 @@ public class PlayerListener implements Listener {
         arena.getDebugger().i("aimed location: " + event.getTo(), player);
 
 
-        if (event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL && ArenaPlayer.parsePlayer(player.getName()).getStatus() != Status.FIGHT) {
+        if (event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL && ArenaPlayer.parsePlayer(player).getStatus() != Status.FIGHT) {
             arena.getDebugger().i("onPlayerTeleport: ender pearl when not fighting, cancelling!", player);
             event.setCancelled(true); // cancel and out
             return;
         }
 
-        if (ArenaPlayer.parsePlayer(player.getName()).isTelePass()
+        if (ArenaPlayer.parsePlayer(player).isTelePass()
                 || player.hasPermission("pvparena.telepass")) {
 
             maybeFixInvisibility(arena, player);
@@ -944,7 +944,7 @@ public class PlayerListener implements Listener {
     public void onPlayerVelocity(final PlayerVelocityEvent event) {
         final Player player = event.getPlayer();
 
-        final Arena arena = ArenaPlayer.parsePlayer(player.getName()).getArena();
+        final Arena arena = ArenaPlayer.parsePlayer(player).getArena();
         if (arena == null) {
             return; // no fighting player or no powerups => OUT
         }
@@ -955,7 +955,7 @@ public class PlayerListener implements Listener {
     public void onPlayerVelocity(final ProjectileLaunchEvent event) {
         if (event.getEntity().getShooter() instanceof Player) {
             final Player player = (Player) event.getEntity().getShooter();
-            final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player.getName());
+            final ArenaPlayer aPlayer = ArenaPlayer.parsePlayer(player);
             final Arena arena = aPlayer.getArena();
             if (arena == null) {
                 return; // no fighting player => OUT
